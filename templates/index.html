@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AWS INTELLIGENCE - Sky Guard AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style> body{font-family:'JetBrains Mono', monospace; background:#050a14;} </style>
+</head>
+<body class="text-gray-300 p-3 md:p-5">
+
+  <!-- NAVBAR -->
+  <nav class="flex flex-wrap items-center justify-between border border-cyan-900/40 bg-[#0a1428]/90 rounded-lg px-4 py-3 mb-5">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 rounded-full bg-cyan-400 flex items-center justify-center text-black font-bold">◍</div>
+      <div>
+        <p class="text-white text-[12px] font-bold tracking-[0.2em]">AWS INTELLIGENCE</p>
+        <p class="text-[9px] text-cyan-400 tracking-widest">AI/ML NET COMMAND • SIH 2026</p>
+      </div>
+    </div>
+    <div id="tabs" class="flex flex-wrap gap-2 mt-2 md:mt-0"></div>
+    <div class="flex gap-2 items-center mt-2 md:mt-0">
+      <span class="text-[10px] text-green-400 bg-green-900/20 px-2 py-1 rounded border border-green-900/30">● LIVE Telemetry</span>
+      <span class="text-[10px] text-red-400 bg-red-900/20 px-2 py-1 rounded border border-red-900/30">3 Anomalies</span>
+    </div>
+  </nav>
+
+  <!-- CONTENT CONTAINER -->
+  <div id="content"></div>
+
+<script>
+const tabs = ['Dashboard','Anomaly Prioritization','Rain & Water','Predictions','Settings','Share & Reports'];
+let activeTab = 'Dashboard';
+
+function renderTabs(){
+  const container = document.getElementById('tabs');
+  container.innerHTML = tabs.map(t => `
+    <button onclick="setTab('${t}')" class="text-[10px] px-3 py-1.5 rounded border transition ${activeTab===t? 'bg-cyan-900/40 text-cyan-200 border-cyan-500/50' : 'bg-[#0f1c33] text-gray-500 border-blue-900/30 hover:text-white'}">${t}</button>
+  `).join('');
+}
+
+function setTab(t){
+  activeTab = t;
+  renderTabs();
+  renderContent();
+}
+
+function renderContent(){
+  const c = document.getElementById('content');
+  if(activeTab==='Dashboard'){
+    c.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex justify-between items-end">
+          <div><h1 class="text-white text-[14px] font-bold tracking-wider">INTELLIGENT WEATHER STATION MONITORING</h1><p class="text-[10px] text-gray-500">Detect. Explain. Act. — AI-powered anomaly detection for Automatic Weather Stations.</p></div>
+          <p class="text-[9px] text-gray-600">Last update: 6m ago</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div class="md:col-span-4 grid grid-cols-2 gap-4">
+            <div class="bg-[#0f1c33] border border-blue-900/30 rounded-lg p-4"><p class="text-[9px] text-gray-500">SYSTEM STATUS</p><p class="text-white text-[22px] font-bold">128 AWS</p><p class="text-[9px] text-green-400 mt-1">↑ 12 Stations Healthy</p><p class="text-[8px] text-gray-500 mt-2">121 Operational / 2 Degraded</p></div>
+            <div class="bg-[#0f1c33] border border-blue-900/30 rounded-lg p-4"><p class="text-[9px] text-gray-500">AI CONFIDENCE</p><p class="text-purple-400 text-[22px] font-bold">94.7%</p><div class="w-full h-1.5 bg-gray-800 rounded mt-3"><div class="w-[94.7%] h-full bg-gradient-to-r from-purple-500 to-cyan-400 rounded"></div></div><p class="text-[8px] text-gray-500 mt-2">Model Avg Accuracy</p></div>
+            <div class="col-span-2 bg-[#1a0f2e] border border-red-900/30 rounded-lg p-4"><p class="text-[10px] text-white">AI Detection Spotlight <span class="text-[8px] bg-red-900/40 text-red-300 px-1.5 py-0.5 rounded ml-2">● Anomaly Alert</span></p><div class="mt-3 bg-[#050a14] border border-red-500/20 p-3 rounded"><p class="text-[10px] text-red-300">AWS-042 - Western Region</p><p class="text-[9px] text-gray-400 mt-1">Extreme high-temp deviation. Probability of physical sensor failure is high.</p><div class="grid grid-cols-2 gap-2 mt-3 text-[9px]"><span class="text-gray-500">Observed: <b class="text-white">49.2°C</b></span><span class="text-gray-500">Expected: <b class="text-white">34°C</b></span></div></div><button class="w-full mt-3 bg-[#7c3aed] hover:bg-[#6d28e0] text-white text-[10px] py-2 rounded font-bold">Investigate Anomaly →</button></div>
+          </div>
+          <div class="md:col-span-8 bg-[#0f1c33] border border-blue-900/30 rounded-lg p-4"><p class="text-[10px] text-white">Active Station Network Grid <span class="text-[8px] text-gray-500">— 128 AWS Live</span></p><div class="h-[320px] bg-[#050a14] rounded border border-gray-800/50 mt-3 flex items-center justify-center relative"><span class="absolute top-12 left-[55%] text-[10px] text-yellow-300">● AWS-042 - High Temp (32.1°N)</span><span class="absolute bottom-16 left-[35%] text-[10px] text-red-400">● 002-042 [Anomalous]</span><span class="absolute bottom-20 right-[28%] text-[10px] text-cyan-300">● AWS-South-12 [Healthy]</span><p class="text-[11px] text-gray-600">[INDIA MAP - Connect Leaflet.js Here]</p></div></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="md:col-span-2 bg-[#0f1c33] border border-blue-900/30 rounded-lg p-4"><p class="text-[10px] text-white mb-3">Real-Time Sensor Telemetry (Global Avg)</p><table class="w-full text-[10px]"><thead class="text-[9px] text-gray-500 border-b border-gray-800"><tr><td class="pb-2">PARAMETER</td><td>VALUE</td><td>TREND</td><td>STATUS</td></tr></thead><tbody class="text-gray-300"><tr class="border-b border-gray-800/50"><td class="py-2">Temperature</td><td class="text-cyan-300">32.4°C</td><td class="text-gray-500">+0.2/hr</td><td class="text-green-400">● Healthy</td></tr><tr class="border-b border-gray-800/50"><td class="py-2">Humidity</td><td>64.8%</td><td>-1.1/hr</td><td class="text-green-400">● Healthy</td></tr><tr class="border-b border-gray-800/50"><td class="py-2">Baro Pressure</td><td class="text-cyan-300">1004 hPa</td><td>Steady</td><td class="text-green-400">● Healthy</td></tr><tr class="border-b border-gray-800/50"><td class="py-2">Wind Speed</td><td>6.2 m/s</td><td>+1.5/hr</td><td class="text-green-400">● Healthy</td></tr><tr><td class="py-2">Rainfall</td><td>0.4 mm</td><td>+0.1/hr</td><td class="text-green-400">● Healthy</td></tr></tbody></table></div>
+          <div class="bg-[#0f1c33] border border-blue-900/30 rounded-lg p-4"><p class="text-[10px] text-white">Last Calibration Event</p><p class="text-[9px] text-gray-500 mt-2">Station AWS-042 was last calibrated 2 days ago. Drift: 0.4%</p></div>
+        </div>
+      </div>`;
+  }
+  else if(activeTab==='Anomaly Prioritization'){
+    c.innerHTML = `<div class="space-y-4"><h1 class="text-white font-bold">ANOMALY TYPE PRIORITIZATION</h1><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="md:col-span-2 space-y-2">${[{n:'Temperature Spikes',c:'8 Active detections',l:'Critical'},{n:'Pressure Drops',c:'5 Active detections',l:'High'},{n:'Humidity Surges',c:'2 Active detections',l:'Medium'},{n:'Wind Anomalies',c:'4 Active detections',l:'High'},{n:'Rainfall Irregularities',c:'0 Active detections',l:'Low'},{n:'Sensor Malfunctions',c:'12 Active detections',l:'Critical'}].map(i=>`<div class="bg-[#0f1c33] border border-blue-900/30 rounded p-3 flex justify-between items-center"><div><p class="text-[11px] text-white">${i.n}</p><p class="text-[9px] text-gray-500">${i.c}</p></div><div class="flex gap-3 items-center"><span class="text-[8px] px-2 py-0.5 rounded border ${i.l==='Critical'?'bg-red-900/40 text-red-300 border-red-900/50': i.l==='High'?'bg-orange-900/20 text-orange-300':'bg-cyan-900/20 text-cyan-300'}">${i.l}</span><div class="w-8 h-4 bg-cyan-500 rounded-full relative"><div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div></div></div></div>`).join('')}</div><div class="bg-[#0f1c33] border border-blue-900/30 rounded p-4"><p class="text-[11px] text-white mb-3">Priority Matrix</p><div class="grid grid-cols-4 gap-1"><div class="h-10 bg-red-800/70 border border-red-700"></div><div class="h-10 bg-red-700/50"></div><div class="h-10 bg-yellow-700/50"></div><div class="h-10 bg-yellow-600/30"></div><div class="h-10 bg-red-700/50"></div><div class="h-10 bg-yellow-700/50"></div><div class="h-10 bg-yellow-600/30"></div><div class="h-10 bg-green-700/30"></div><div class="h-10 bg-yellow-700/50"></div><div class="h-10 bg-yellow-600/30"></div><div class="h-10 bg-green-700/30"></div><div class="h-10 bg-green-600/20"></div></div><div class="flex justify-between text-[8px] text-gray-500 mt-2"><span>Severity →</span><span>Frequency →</span></div></div></div></div>`;
+  }
+  else if(activeTab==='Rain & Water'){
+    c.innerHTML = `<div class="space-y-4"><h1 class="text-white font-bold">RAIN AND WATER LEVEL TELEMETRY</h1><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-[#0f1c33] border border-blue-900/30 rounded p-6 text-center"><p class="text-[10px] text-left">Current Water Storage Level</p><div class="w-28 h-28 mx-auto rounded-full border-4 border-cyan-400 flex flex-col items-center justify-center my-5 shadow-[0_0_20px_rgba(34,211,238,0.3)]"><p class="text-white text-[18px]">7.42m</p><p class="text-[9px] text-cyan-300">78% Capacity</p></div><p class="text-[9px] text-gray-500">Dam Capacity Threshold: 9.5m</p></div><div class="bg-[#0f1c33] border border-blue-900/30 rounded p-4"><p class="text-[10px]">7-Day Accumulated Rainfall (mm)</p><div class="flex items-end gap-2 h-28 mt-6">${[20,40,85,65,35,15,25].map(h=>`<div style="height:${h}%" class="flex-1 bg-gradient-to-t from-cyan-600 to-cyan-300 rounded-t"></div>`).join('')}<div class="flex-1 bg-purple-600 rounded-t flex items-center justify-center text-[8px] text-white" style="height:95%">Peak</div></div><div class="flex justify-between text-[8px] text-gray-500 mt-2"><span>Mon</span><span>Sun</span></div></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-4">${[{id:'AWS-Himalaya-02',r:'128.4mm',l:'4.1m',risk:'Low'},{id:'AWS-Ghats-14',r:'342.1mm',l:'9.8m',risk:'High'},{id:'AWS-Central-05',r:'42.0mm',l:'2.1m',risk:'Normal'}].map(x=>`<div class="bg-[#0f1c33] border border-blue-900/30 rounded p-4"><p class="text-[10px] text-white">${x.id}</p><div class="flex justify-between mt-3 text-[11px]"><span class="text-cyan-300">${x.r}</span><span class="text-gray-400">${x.l}</span></div><p class="text-[9px] mt-2 ${x.risk==='High'?'text-red-400':'text-green-400'}">● ${x.risk} Flood Risk</p></div>`).join('')}</div></div>`;
+  }
+  else if(activeTab==='Predictions'){
+    c.innerHTML = `<div class="space-y-4"><h1 class="text-white font-bold">METEOROLOGICAL PREDICTIONS</h1><div class="grid grid-cols-1 md:grid-cols-4 gap-4"><div class="bg-[#0f1c33] border border-blue-900/30 rounded p-3"><p class="text-[9px] mb-2">Location Selector</p>${['Srinagar, J&K','Cherrapunji, Meghalaya','Mumbai, Maharashtra','Jaisalmer, Rajasthan','Ooty, Tamil Nadu'].map(l=>`<div class="text-[9px] p-2.5 mt-1.5 rounded cursor-pointer ${l.includes('Mumbai')?'bg-cyan-900/40 text-cyan-200 border border-cyan-500/40':'bg-[#050a14] text-gray-500 border border-gray-800'}">${l}</div>`).join('')}</div><div class="md:col-span-3 space-y-4"><div class="grid grid-cols-5 gap-2">${[{d:'Mon',t:'24-28°C',r:'19%'},{d:'Tue',t:'22-26°C',r:'88%'},{d:'Wed',t:'26-24°C',r:'94%'},{d:'Thu',t:'23-27°C',r:'40%'},{d:'Fri',t:'25-29°C',r:'28%'}].map(x=>`<div class="bg-[#0f1c33] border border-blue-900/30 rounded p-3 text-center"><p class="text-[11px] text-cyan-300">${x.d}</p><p class="text-[9px] mt-1">${x.t}</p><p class="text-[7px] text-gray-500 mt-2">Rain ${x.r}</p></div>`).join('')}</div><div class="bg-[#0f1c33] border border-blue-900/30 rounded p-4 h-40 flex flex-col justify-center"><p class="text-[9px]">Predicted vs Historical Baseline - Rainfall Threshold</p><div class="mt-4 h-20 relative border-l border-b border-gray-700"><div class="absolute inset-0 flex items-end"><svg class="w-full h-full"><path d="M0 60 Q 50 40 100 50 T 200 30 T 300 50" stroke="#22d3ee" stroke-width="2" fill="none"/><path d="M0 70 Q 50 60 100 65 T 200 55 T 300 70" stroke="#a855f7" stroke-width="2" fill="none" stroke-dasharray="4 4"/></svg></div></div><div class="flex gap-4 text-[8px] mt-2"><span class="text-cyan-300">— Predicted</span><span class="text-purple-400">--- Historical</span></div></div></div></div></div>`;
+  }
+  else if(activeTab==='Settings'){
+    c.innerHTML = `<div class="bg-[#0f1c33] border border-blue-900/30 rounded p-6"><h1 class="text-white font-bold">GLOBAL SYSTEM SETTINGS</h1><p class="text-[10px] text-gray-500 mt-2">Configure operational metrics, alert priority filters, hardware calibration metadata.</p><div class="grid grid-cols-2 gap-4 mt-6"><div class="bg-[#050a14] p-4 rounded border border-gray-800"><p class="text-[10px]">Station Calibrations</p><p class="text-[9px] text-gray-500 mt-2">Last calibrated 2 days ago. Next due in 5 days. Drift 0.4%</p></div><div class="bg-[#050a14] p-4 rounded border border-gray-800"><p class="text-[10px]">Emergency PagerDuty Routing</p><p class="text-[9px] text-green-400 mt-2">● ON - Critical alerts will page on-call</p></div></div></div>`;
+  }
+  else {
+    c.innerHTML = `<div class="bg-[#0f1c33] border border-blue-900/30 rounded p-6"><h1 class="text-white font-bold">EXPORT ENGINE & REPORT GENERATOR</h1><div class="grid grid-cols-3 gap-3 mt-6">${['PDF Summary','Raw Telemetry CSV','AI Model weights'].map(b=>`<button class="bg-[#050a14] border border-gray-800 text-[10px] p-4 rounded hover:bg-gray-800">${b}</button>`).join('')}</div><button class="mt-6 bg-cyan-500 text-black text-[11px] px-5 py-2.5 rounded font-bold">Generate Custom Audit PDF</button></div>`;
+  }
+}
+
+renderTabs();
+renderContent();
+</script>
+</body>
+</html>
