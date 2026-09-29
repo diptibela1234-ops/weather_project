@@ -21,6 +21,7 @@ less sensitive - that's the easiest way to "tune" this system.
 
 import database
 from datetime import datetime, timezone
+from flask import jsonify, request
 
 # How much change counts as a problem, per parameter.
 PARAMETER_RULES = {
@@ -159,3 +160,21 @@ def check_sensor_silence(last_reading_timestamp):
     gap_minutes = (now - last_time).total_seconds() / 60
 
     return gap_minutes > SILENCE_THRESHOLD_MINUTES, gap_minutes
+
+
+def register_predict_route(app):
+    """Register a POST /predict endpoint on a Flask application."""
+    @app.route("/predict", methods=["POST"])
+    def predict():
+        data = request.get_json(silent=True)
+        if not isinstance(data, dict):
+            return jsonify({"error": "Request body must be a JSON object."}), 400
+
+        values = data.get("values")
+        history = data.get("history", [])
+        if not isinstance(values, dict) or not isinstance(history, list):
+            return jsonify({"error": "'values' must be an object and 'history' must be a list."}), 400
+
+        return jsonify({"anomalies": detect_anomalies(values, history)})
+
+    return predict
